@@ -11,14 +11,16 @@ Even thought the XY plot turns in the same direction. Any suggestions ?
 
 Also it's strange that in fossen's model the XY were inverted in the XY plot. On documentation it is X at the top and Y at the bottom. I kept it as it is as everything seems normal.
 
--Linearize model with two angles set to 0. 
--Apply LQR on it
+-Linearize model with two angles set to 0.
+ 
+- Apply LQR on it
 
 
 ### File descriptions
 -OtterFullModel & OtterFunction : Main reference for the full model. Do not modify
+	
 -OtterFixedAngleModel & Function : Simplified version where phi and theta are set to 0 (as eq) to simplify the dynamic.
 
-Based on :
+## Based on :
 T. I. Fossen and T. Perez (2004). Marine Systems Simulator (MSS)
 URL: https://github.com/cybergalactic/MSS
