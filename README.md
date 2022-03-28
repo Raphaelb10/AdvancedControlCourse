@@ -12,7 +12,7 @@ Even thought the XY plot turns in the same direction. Any suggestions ?
 Also it's strange that in fossen's model the XY were inverted in the XY plot. On documentation it is X at the top and Y at the bottom. I kept it as it is as everything seems normal.
 
 -Linearize model with two angles set to 0. 
-- Apply LQR on it
+-Apply LQR on it
 
 
 ### File descriptions
