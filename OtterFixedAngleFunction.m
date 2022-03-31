@@ -38,6 +38,13 @@ function [xdot,U] = OtterFixedAngleFunction(x,n,mp,rp,V_c,beta_c)
 %            2021-07-22 Added a new state for the trim moment
 %            2021-12-17 New method Xudot = -addedMassSurge(m,L,rho) 
 
+%% Imposing phi theta and z to zero
+x(10:11)=[0 0]';%added line to fix the position of the roll and pitch angle to 0, to ignore its dynamic.
+x(9)=0;
+x(4:5)=[0 0]'; % No velocity in roll or pitch
+x(3)=0; %No velocity up so no motion in z.
+
+%% Rest of the function
 % Check of input and state dimensions
 if (length(x) ~= 12),error('x vector must have dimension 12!'); end
 if (length(n) ~= 2),error('n vector must have dimension 2!'); end
@@ -203,8 +210,13 @@ J = eulerang(eta(4),eta(5),eta(6));
 % Time derivative of the state vector - numerical integration; see ExOtter.m  
 xdot = [ M \ ( tau + tau_damp + tau_crossflow - C * nu_r - G * eta - g_0)
          J * nu ]; 
-     
+%% Modified to make useless state constants     
 xdot(10:11)=[0 0]';%added line to fix the position of the roll and pitch angle to 0, to ignore its dynamic.
+xdot(9)=0; %z=0 at all time.
+xdot(4:5)=[0 0]'; % No velocity in roll or pitch
+xdot(3)=0; %No velocity up so no motion in z.
+
+
 
 trim_moment = trim_moment + 0.05 * (trim_setpoint - trim_moment);
 
