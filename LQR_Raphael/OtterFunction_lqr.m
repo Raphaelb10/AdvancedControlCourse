@@ -1,4 +1,4 @@
-function [xdot,U] = OtterFunction(x,n,mp,rp,V_c,beta_c)
+function [xdot,U] = OtterFunction_lqr(x,n,mp,rp,V_c,beta_c)
 % [xdot,U] = otter(x,n,mp,rp,V_c,beta_c) returns the speed U in m/s (optionally) 
 % and the time derivative of the state vector: 
 %    x = [ u v w p q r x y z phi theta psi ]' 
@@ -47,7 +47,7 @@ trim_setpoint = 280;
 
 % trim_setpoint is a step input, which is filtered using the state trim_moment
 persistent trim_moment;
-
+trim_moment=0;
 if isempty(trim_moment)
    trim_moment = 0;
 end
@@ -165,16 +165,16 @@ Nr = -M(6,6) / T_yaw;            % specified using the time constant in T_yaw
 % Control forces and moments - with propeller revolution saturation 
 Thrust = zeros(2,1);
 for i = 1:1:2
-    if n(i) > n_max^2              % saturation, physical limits
-       n(i) = n_max^2; 
+    if n(i) > n_max              % saturation, physical limits
+       n(i) = n_max; 
     elseif n(i) < n_min
        n(i) = n_min; 
    end
     
    if n(i) > 0                          
-     Thrust(i) = k_pos * n(i);%*abs(n(i));    % positive thrust (N) 
+     Thrust(i) = k_pos * n(i)*abs(n(i));    % positive thrust (N) 
    else
-     Thrust(i) = k_neg * n(i);%*abs(n(i));    % negative thrust (N) 
+     Thrust(i) = k_neg * n(i)*abs(n(i));    % negative thrust (N) 
    end
 end
 
@@ -204,6 +204,6 @@ J = eulerang(eta(4),eta(5),eta(6));
 xdot = [ M \ ( tau + tau_damp + tau_crossflow - C * nu_r - G * eta - g_0)
          J * nu ];  
      
-trim_moment = trim_moment + 0.05 * (trim_setpoint - trim_moment);
+%trim_moment = trim_moment + 0.05 * (trim_setpoint - trim_moment);
 
 end
