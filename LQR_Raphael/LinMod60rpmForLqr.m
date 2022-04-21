@@ -24,3 +24,5 @@ Q(6,6) = 1;%Yaw angle velocity
 
 R = eye(size(sys.b,2));% Put higher to lower the use of the propellers
 [F,P,CLP] = lqr(A,B,Q,R);
+F(:,2:5)=0;
+F(:,7:12)=0;
