@@ -38,3 +38,12 @@ N=inv(Dcgain);
 % N=(C*inv((eye(12)-(A-B*F)))*B)'%end up with 12x2 instead
 % N(:,2:5)=0;
 % N(:,7:12)=0
+
+%% trajectory
+circleplot(0,15,15) %xc,yc,r
+
+%% plot x,y graphs + waypoints
+figure
+plot(out.yout,out.xout)
+hold on
+plot(out.waypointy,out.waypointx,'o')
