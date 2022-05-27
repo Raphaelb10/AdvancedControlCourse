@@ -14,12 +14,12 @@ A = sys.a;
 B = sys.b;
 Cfull = sys.c;
 Dfull = sys.d;
-
 G = tf(ss(A,B,Cfull,Dfull));
 %% Changing C matrix
 C=[1 0 0 0 0 0 0 0 0 0 0 0;
    0 0 0 0 0 1 0 0 0 0 0 0];
 D=zeros(2,2);
+
 %% LQR design.
 Q = eye(size(sys.a,1));%Put higher to allow less error for the states. 0 for states in which we don't care about their error.
 % 
@@ -40,10 +40,29 @@ N=inv(Dcgain);
 % N(:,7:12)=0
 
 %% trajectory
-circleplot(0,15,15) %xc,yc,r
+% circleplot(0,15,15) %xc,yc,r
 
 %% plot x,y graphs + waypoints
 figure
 plot(out.yout,out.xout)
 hold on
 plot(out.waypointy,out.waypointx,'o')
+
+%% Kalman
+% check if observable
+% Ckalman=[1 0 0 0 0 0 0 0 0 0 0 0;
+%          0 0 0 0 0 1 0 0 0 0 0 0
+%          0 0 0 0 0 0 0 0 0 0 0 0];
+Ckalman=eye(12);
+Ckalman(7,7)=0;
+Ckalman(8,8)=0;
+%          0 0 0 1 0 0 0 0 0 0 0 0;
+%          0 0 0 0 1 0 0 0 0 0 0 0;
+%          0 1 0 0 0 0 0 0 0 0 0 0;
+%          0 0 1 0 0 0 0 0 0 0 0 0
+%          0 0 0 0 0 0 0 0 0 1 0 0;
+%          0 0 0 0 0 0 0 0 0 0 1 0;
+%          0 0 0 0 0 0 0 0 0 0 0 1];
+     
+Ob=obsv(A,Ckalman);
+rank(Ob)
