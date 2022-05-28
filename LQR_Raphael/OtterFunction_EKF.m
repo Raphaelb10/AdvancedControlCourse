@@ -1,5 +1,5 @@
 function [xdot,x,u] = OtterFunction_EKF()
-%Don't need input now as will be used with symbolic variable to get a simbolic results, and then compute its jacobian(=A matrix near
+%Don't need input now as will be used with symbolic variable to get a symbolic results, and then compute its jacobian(=A matrix near
 %x(k+1|k).
 %This will return a symbolic form of xdot (=f(x,u))
 % [xdot,U] = otter(x,n,mp,rp,V_c,beta_c) returns the speed U in m/s (optionally) 
@@ -191,19 +191,19 @@ Thrust = zeros(2,1);
 %      Thrust(i) = k_neg * u(i)*abs(u(i));    % negative thrust (N) 
 %    end
 % end
-Thrust=k_pos*abs(u);
+Thrust=k_pos.*u.*abs(u);
 %% Symbolic generalized force vector
-tau = sym('tau',[6,1],'real');
-
-tau(1)=Thrust(1);
-tau(2) = 0;
-tau(3) = 0;
-tau(4) = 0;
-tau(5) = 0;
-tau(6) = -l1 * Thrust(1) - l2 * Thrust(2);
+% tau = sym('tau',[6,1],'real');
+% 
+% tau(1)=Thrust(1);
+% tau(2) = 0;
+% tau(3) = 0;
+% tau(4) = 0;
+% tau(5) = 0;
+% tau(6) = -l1 * Thrust(1) - l2 * Thrust(2);
 %%
 % Control forces and moments
-%tau = [Thrust(1) + Thrust(2) 0 0 0 0 -l1 * Thrust(1) - l2 * Thrust(2) ]';
+tau = [Thrust(1) + Thrust(2) 0 0 0 0 -l1 * Thrust(1) - l2 * Thrust(2) ]';
 
 % Linear damping using relative velocities + nonlinear yaw damping
 Xh = Xu * nu_r(1);
