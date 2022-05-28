@@ -1,0 +1,10 @@
+#ignore all cache files
+*.slxc
+#ignore autosaved matlab files
+*.asv
+slprj
+
+*/slprj/*
+/slprj/*
+slprj/*
+slprj/_sfprj/*
