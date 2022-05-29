@@ -105,10 +105,10 @@ Ig = Ig_CG - m * Smtrx(rg)^2 - mp * Smtrx(rp)^2;  % hull + payload in CO
 % Experimental propeller data including lever arms
 l1 = -y_pont;                           % lever arm, left propeller (m)
 l2 = y_pont;                            % lever arm, right propeller (m)
-k_pos = 0.02216/2;                      % Positive Bollard, one propeller 
-k_neg = 0.01289/2;                      % Negative Bollard, one propeller 
-n_max =  sqrt((0.5*24.4 * g)/k_pos);    % maximum propeller rev. (rad/s)
-n_min = -sqrt((0.5*13.6 * g)/k_neg);    % minimum propeller rev. (rad/s)
+% k_pos = 0.02216/2;                      % Positive Bollard, one propeller 
+% k_neg = 0.01289/2;                      % Negative Bollard, one propeller 
+% n_max =  sqrt((0.5*24.4 * g)/k_pos);    % maximum propeller rev. (rad/s)
+% n_min = -sqrt((0.5*13.6 * g)/k_neg);    % minimum propeller rev. (rad/s)
 
 % MRB and CRB (Fossen 2021)
 I3 = eye(3);
@@ -191,7 +191,7 @@ Thrust = zeros(2,1);
 %      Thrust(i) = k_neg * u(i)*abs(u(i));    % negative thrust (N) 
 %    end
 % end
-Thrust=k_pos.*u.*abs(u);
+% Thrust=k_pos.*u.*abs(u);
 %% Symbolic generalized force vector
 % tau = sym('tau',[6,1],'real');
 % 
@@ -203,7 +203,7 @@ Thrust=k_pos.*u.*abs(u);
 % tau(6) = -l1 * Thrust(1) - l2 * Thrust(2);
 %%
 % Control forces and moments
-tau = [Thrust(1) + Thrust(2) 0 0 0 0 -l1 * Thrust(1) - l2 * Thrust(2) ]';
+tau = [u(1) + u(2) 0 0 0 0 -l1 * u(1) - l2 * u(2) ]';
 
 % Linear damping using relative velocities + nonlinear yaw damping
 Xh = Xu * nu_r(1);
