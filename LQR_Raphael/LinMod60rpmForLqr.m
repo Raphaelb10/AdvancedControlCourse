@@ -3,6 +3,8 @@
 % clear all, close all;
 addpath(genpath('C:\Users\rapha\Desktop\MA2\Advanced control\surface\MSS-master\MSS-master')); %%Add mss-master to path
 addpath(genpath("C:\Users\rapha\Desktop\MA2\Advanced control\surface\Workspace\MSSfor2020"));
+addpath(genpath("C:\Users\rapha\Desktop\MA2\Advanced control\surface\Workspace\AdvancedControlCourse\LQR_Raphael"));
+
 load('C:\Users\rapha\Desktop\MA2\Advanced control\surface\Workspace\AdvancedControlCourse\LQR_Raphael\OpTrim60.mat');
 
 u0=[60 60]'; %To change accordingly to what's in OpTrimXX.Inputs
